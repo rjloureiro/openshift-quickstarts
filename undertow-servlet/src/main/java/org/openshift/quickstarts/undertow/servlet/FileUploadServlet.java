@@ -44,6 +44,13 @@ public class FileUploadServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         /* Receive file uploaded to the Servlet from the HTML5 form */
+        System.out.println("doPost");
+        try {
+            System.out.println("doPost" + request.getParts() != null ? request.getParts().size() : -1);
+        }catch (Exception e ){
+            System.out.println("doPost: error: " + e.getMessage());
+        }
+
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         for (Part part : request.getParts()) {
