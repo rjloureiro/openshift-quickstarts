@@ -43,18 +43,22 @@ public class FileUploadServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String uploadPath = getServletContext().getRealPath("Teste");
+
         /* Receive file uploaded to the Servlet from the HTML5 form */
-        System.out.println("doPost");
+        System.out.println("doPost: " +uploadPath);
         try {
             System.out.println("doPost" + request.getParts() != null ? request.getParts().size() : -1);
         }catch (Exception e ){
             System.out.println("doPost: error: " + e.getMessage());
         }
+        System.out.println("Request: " + request.getContentType());
 
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
+
         for (Part part : request.getParts()) {
-            part.write(fileName);
+           part.write(fileName);
         }
         response.getWriter().print("The file uploaded sucessfully.");
     }

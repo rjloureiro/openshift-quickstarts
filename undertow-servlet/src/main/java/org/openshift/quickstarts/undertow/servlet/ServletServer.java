@@ -21,6 +21,7 @@ package org.openshift.quickstarts.undertow.servlet;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.servlet.*;
 
 import io.undertow.Handlers;
 import io.undertow.Undertow;
@@ -35,6 +36,7 @@ import static io.undertow.servlet.Servlets.servlet;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 
@@ -48,6 +50,9 @@ public class ServletServer {
     public static void main(final String[] args) {
         try {
 
+
+           // MultipartConfigElement multi = new MultipartConfigElement();
+
             DeploymentInfo servletBuilder = deployment()
                     .setClassLoader(ServletServer.class.getClassLoader())
                     .setContextPath(MYAPP)
@@ -60,6 +65,7 @@ public class ServletServer {
                                     .addInitParam("message", "MyServlet")
                                     .addMapping("/myservlet"),
                             servlet("FileUploadServlet", FileUploadServlet.class)
+                                    .setMultipartConfig(new MultipartConfigElement("/home/jboss"))
                                     .addMapping("/fileuploadservlet"));
 
             DeploymentManager manager = defaultContainer().addDeployment(servletBuilder);
