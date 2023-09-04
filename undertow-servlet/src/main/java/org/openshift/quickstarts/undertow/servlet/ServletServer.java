@@ -60,7 +60,7 @@ public class ServletServer {
                                     .addInitParam("message", "MyServlet")
                                     .addMapping("/myservlet"),
                             servlet("FileUploadServlet", FileUploadServlet.class)
-                                    .addMapping("/upload"));
+                                    .addMapping("/fileuploadservlet"));
 
             DeploymentManager manager = defaultContainer().addDeployment(servletBuilder);
             manager.deploy();
